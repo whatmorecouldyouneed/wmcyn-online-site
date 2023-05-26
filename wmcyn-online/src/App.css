@@ -1,0 +1,194 @@
+.container {
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100vw;
+}
+
+.typewriter {
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.input-field {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+}
+
+.submit-button {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+}
+
+.section-heading {
+  font-size: 3.2rem;
+}
+
+.friends-and-family-section {
+  padding-top: 20px;
+}
+
+.friends-and-family-section .section-heading {
+  font-size: 3.2rem;
+  margin-bottom: 20px;
+}
+
+.friends-and-family-section form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friends-and-family-section input,
+.friends-and-family-section button {
+  padding: 10px;
+  width: 100%;
+}
+
+.scroll-button-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.scroll-button {
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.scroll-button:hover {
+  background-color: #555;
+}
+
+.scroll-button:focus {
+  outline: none;
+}
+
+.scroll-button:hover,
+.scroll-button:active,
+.scroll-button:focus {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    padding: 10px;
+  }
+
+  .typewriter {
+    margin-bottom: 10px;
+    font-size: 24px; /* Adjust the font size for mobile */
+    text-align: center; /* Center the text */
+  }
+
+  form {
+    max-width: 300px; /* Adjust the form width for mobile */
+  }
+
+  .input-field,
+  .submit-button {
+    font-size: 14px; /* Adjust the font size for mobile */
+  }
+
+  .section-heading {
+    font-size: 2rem;
+    text-align: center; /* Center the text */
+  }
+
+  .friends-and-family-section .section-heading {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: center; /* Center the text */
+  }
+
+  .scroll-button-container {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .scroll-button {
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease; /* Add transition for smooth animation */
+  }
+
+  .scroll-button:hover {
+    transform: scale(1.1); /* Increase size on hover */
+    background-color: transparent;
+  }
+
+  .scroll-button:focus {
+    outline: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  /* Other existing styles */
+
+  .friends-and-family-section {
+    margin-top: -30px; /* Adjust the negative margin to move the section up */
+    padding-top: 10px; /* Adjust the top padding for spacing */
+  }
+}
+
+/* Other existing styles */
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #000;
+}
+
+.logo {
+  max-width: 200px;
+  height: auto;
+}
+
+
+
+
+
