@@ -5,11 +5,6 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'dist',
-    assetsInlineLimit: 0,
-    rollupOptions: {
-      input: {
-        main: './src/main.jsx',
-      },
-    },
+    base: '/wmcyn-online-site/',
   },
 });

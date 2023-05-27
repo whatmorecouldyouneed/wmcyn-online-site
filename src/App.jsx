@@ -38,9 +38,18 @@ const App = () => {
 
   const scrollToFriendsAndFamily = () => {
     const friendsAndFamilySection = document.getElementById('friendsAndFamilySection');
-    friendsAndFamilySection.scrollIntoView({ behavior: 'smooth' });
-    setArrowUp(true);
+    const aboutSection = document.getElementById('aboutSection');
+  
+    const scrollTarget = isArrowUp ? friendsAndFamilySection : aboutSection;
+    const offsetTop = scrollTarget.offsetTop - 100; // Adjust the offset as needed
+  
+    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    setArrowUp(!isArrowUp);
   };
+  
+  
+  
+  
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -50,7 +59,7 @@ const App = () => {
   return (
     <div>
       <div className="container">
-      <img src={logo} alt="Logo" className="logo" />
+        <img src={logo} alt="Logo" className="logo" />
         <h1 className="typewriter">
           <Typewriter
             options={{
@@ -87,14 +96,21 @@ const App = () => {
         </form>
       </div>
 
+      <div className="container" id="aboutSection">
+        <h2 className="section-heading">ABOUT WMCYN</h2>
+        <p className="section-text">
+          WMCYN is a futuristic-based company built on using the advancement of modern technology with the basics of your everyday lifestyle. Here at WMCYN, we plan to show you the multitude of diverse worlds this earth has to offer through goods and services stemming from technology advancements through virtual and augmented reality, fashion, food, art, music and so much more. With many avenues to explore we will go beyond our reach to give you everything you need in order to ask yourself the question, What More Could You Need?
+        </p>
+      </div>
+
       <div className="scroll-button-container">
-  <button
-    className={`scroll-button ${isArrowUp ? 'up' : 'down'}`}
-    onClick={isArrowUp ? scrollToTop : scrollToFriendsAndFamily}
-  >
-    <FontAwesomeIcon icon={isArrowUp ? 'arrow-up' : 'arrow-down'} />
-  </button>
-</div>
+        <button
+          className={`scroll-button ${isArrowUp ? 'up' : 'down'}`}
+          onClick={isArrowUp ? scrollToTop : scrollToFriendsAndFamily}
+        >
+          <FontAwesomeIcon icon={isArrowUp ? 'arrow-up' : 'arrow-down'} />
+        </button>
+      </div>
     </div>
   );
 };

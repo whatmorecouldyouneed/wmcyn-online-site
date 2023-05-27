@@ -189,6 +189,24 @@ form {
 }
 
 
+.section-text {
+  font-size: 2.1rem;
+  color: white;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+@media (max-width: 767px) {
+  .section-text {
+    font-size: 1.6rem;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
 
 
 
