@@ -99,7 +99,7 @@ const App = () => {
       <div className="container" id="aboutSection">
         <h2 className="section-heading">ABOUT WMCYN</h2>
         <p className="section-text">
-          WMCYN is a futuristic-based company built on using the advancement of modern technology with the basics of your everyday lifestyle. Here at WMCYN, we plan to show you the multitude of diverse worlds this earth has to offer through goods and services stemming from technology advancements through virtual and augmented reality, fashion, food, art, music and so much more. With many avenues to explore we will go beyond our reach to give you everything you need in order to ask yourself the question, What More Could You Need?
+        lorem iconsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid
         </p>
       </div>
 
