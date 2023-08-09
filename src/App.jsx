@@ -99,7 +99,7 @@ const App = () => {
       <div className="container" id="aboutSection">
         <h2 className="section-heading">ABOUT WMCYN</h2>
         <p className="section-text">
-        lorem iconsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid
+        future forward start-up built on the advancement of modern technology intertwined with the basics of everyday lifestyle
         </p>
       </div>
 
