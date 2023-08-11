@@ -9,6 +9,42 @@ library.add(faArrowDown, faArrowUp);
 
 import logo from './assets/WMCYN LOGO WHITE.png';
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getDatabase, ref, push, set } from "firebase/database";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBYOLsLlqNQTFgwWO1fyHUTgTHQ4JRgA-A",
+  authDomain: "wmcyn-online-web.firebaseapp.com",
+  projectId: "wmcyn-online-web",
+  storageBucket: "wmcyn-online-web.appspot.com",
+  messagingSenderId: "552241957320",
+  appId: "1:552241957320:web:c32590238a5e7ec06858fd",
+  measurementId: "G-KGVGX3LN7P"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getDatabase(app); // Here's the change
+
+function writeUserData(emailID) {
+  const emailListRef = ref(db, 'emailList');
+  const newEmailRef = push(emailListRef);
+  
+  set(newEmailRef, {
+    email: emailID
+  });
+}
+
+
+
 const App = () => {
   const [email, setEmail] = useState('');
   const [isPlaceholderVisible, setPlaceholderVisible] = useState(true);
@@ -18,6 +54,7 @@ const App = () => {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+  
 
   const handleEmailClick = () => {
     if (isPlaceholderVisible) {
@@ -31,10 +68,14 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle the form submission here
+    
+    // Add email to the Firebase database
+    writeUserData(email);
+  
     console.log('Email submitted:', email);
     console.log('Password submitted:', password);
   };
+  
 
   const scrollToFriendsAndFamily = () => {
     const friendsAndFamilySection = document.getElementById('friendsAndFamilySection');
