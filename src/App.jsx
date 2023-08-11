@@ -47,8 +47,8 @@ function writeUserData(emailID) {
 
 const App = () => {
   const [email, setEmail] = useState('');
+  const [hasSubscribed, setHasSubscribed] = useState(false);
   const [isPlaceholderVisible, setPlaceholderVisible] = useState(true);
-  const [password, setPassword] = useState('');
   const [isArrowUp, setArrowUp] = useState(false);
 
   const handleEmailChange = (e) => {
@@ -62,18 +62,16 @@ const App = () => {
     }
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     
     // Add email to the Firebase database
     writeUserData(email);
   
+    // Update the state to reflect the subscription
+    setHasSubscribed(true);
+
     console.log('Email submitted:', email);
-    console.log('Password submitted:', password);
   };
   
 
@@ -101,40 +99,43 @@ const App = () => {
     <div>
       <div className="container">
         <img src={logo} alt="Logo" className="logo" />
-        <h1 className="typewriter">
-          <Typewriter
-            options={{
-              strings: ["YOU'RE EARLY...", "SIGN UP FOR OUR NEWSLETTER"],
-              autoStart: true,
-              loop: true,
-            }}
-          />
-        </h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder={isPlaceholderVisible ? 'Enter your email' : ''}
-            value={email}
-            onChange={handleEmailChange}
-            onClick={handleEmailClick}
-            className="input-field"
-          />
-          <button type="submit" className="submit-button">Subscribe</button>
-        </form>
-      </div>
-
-      <div id="friendsAndFamilySection" className="container friends-and-family-section">
-        <h2 className="section-heading">FRIENDS AND FAMILY SHOP</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={handlePasswordChange}
-            className="input-field"
-          />
-          <button type="submit" className="submit-button">Enter</button>
-        </form>
+        {hasSubscribed ? (
+        <>
+          <h1 className="typewriter">
+            <Typewriter
+              options={{
+                strings: ["WMCYN WELCOMES YOU"],
+                autoStart: true,
+                loop: true,
+              }}
+            />
+          </h1>
+          <p>Subscribed.</p>
+        </>
+      ) : (
+        <>
+          <h1 className="typewriter">
+            <Typewriter
+              options={{
+                strings: ["YOU'RE EARLY...", "SIGN UP FOR OUR NEWSLETTER"],
+                autoStart: true,
+                loop: true,
+              }}
+            />
+          </h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder={isPlaceholderVisible ? 'Enter your email' : ''}
+              value={email}
+              onChange={handleEmailChange}
+              onClick={handleEmailClick}
+              className="input-field"
+            />
+            <button type="submit" className="submit-button">Subscribe</button>
+          </form>
+        </>
+      )}
       </div>
 
       <div className="container" id="aboutSection">
