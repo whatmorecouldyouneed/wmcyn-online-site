@@ -49,6 +49,7 @@ const App = () => {
   const [email, setEmail] = useState('');
   const [hasSubscribed, setHasSubscribed] = useState(false);
   const [isPlaceholderVisible, setPlaceholderVisible] = useState(true);
+  const [password, setPassword] = useState('');
   const [isArrowUp, setArrowUp] = useState(false);
 
   const handleEmailChange = (e) => {
@@ -62,6 +63,10 @@ const App = () => {
     }
   };
 
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -72,6 +77,7 @@ const App = () => {
     setHasSubscribed(true);
 
     console.log('Email submitted:', email);
+    console.log('Password submitted:', password);
   };
   
 
@@ -136,6 +142,20 @@ const App = () => {
           </form>
         </>
       )}
+      </div>
+
+      <div id="friendsAndFamilySection" className="container friends-and-family-section">
+        <h2 className="section-heading">FRIENDS AND FAMILY SHOP</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={handlePasswordChange}
+            className="input-field"
+          />
+          <button type="submit" className="submit-button">Enter</button>
+        </form>
       </div>
 
       <div className="container" id="aboutSection">
