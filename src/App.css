@@ -208,5 +208,24 @@ form {
 }
 
 
+.instagram-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black; /* Set background color to black */
+  padding: 20px; /* Add padding for spacing */
+}
 
+.instagram-logo {
+  width: 75px;
+  height: 75px;
+  margin: 0; /* Remove any default margin */
+}
+
+.instagram-link {
+  text-decoration: none;
+  color: #fff; /* Set link color to white */
+  font-weight: bold;
+  margin-top: 10px;
+}
 

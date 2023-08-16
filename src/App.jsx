@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Typewriter from 'typewriter-effect';
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 library.add(faArrowDown, faArrowUp);
 
 import logo from './assets/WMCYN LOGO WHITE.png';
+
+import image from './assets/instagram-logo.png';
 
 const App = () => {
   const [email, setEmail] = useState('');
@@ -56,6 +58,26 @@ const App = () => {
     setArrowUp(false);
   };
 
+  // added auto arrow effect
+  useEffect(() => {
+    const handleScroll = () => {
+      // check if user has scrolled to the bottom of the page
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        setArrowUp(true);
+      } else if (window.scrollY === 0) {
+        setArrowUp(false);
+      }
+    };
+
+    // dd the event listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div>
       <div className="container">
@@ -99,10 +121,14 @@ const App = () => {
       <div className="container" id="aboutSection">
         <h2 className="section-heading">ABOUT WMCYN</h2>
         <p className="section-text">
-          WMCYN is a futuristic-based company built on using the advancement of modern technology with the basics of your everyday lifestyle. Here at WMCYN, we plan to show you the multitude of diverse worlds this earth has to offer through goods and services stemming from technology advancements through virtual and augmented reality, fashion, food, art, music and so much more. With many avenues to explore we will go beyond our reach to give you everything you need in order to ask yourself the question, What More Could You Need?
+        future forward start-up built on the advancement of modern technology intertwined with the basics of everyday lifestyle
         </p>
+      <div className="instagram-container">
+      <a href="https://instagram.com/whatmorecouldyouneed" className="instagram-link">
+        <img src={image} alt="Instagram" className="instagram-logo" />
+      </a>
+    </div>
       </div>
-
       <div className="scroll-button-container">
         <button
           className={`scroll-button ${isArrowUp ? 'up' : 'down'}`}
