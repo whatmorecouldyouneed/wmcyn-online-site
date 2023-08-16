@@ -9,10 +9,9 @@ library.add(faArrowDown, faArrowUp);
 
 import logo from './assets/WMCYN LOGO WHITE.png';
 
-import image from './assets/instagram-logo.png';
-
 const App = () => {
   const [email, setEmail] = useState('');
+  const [hasSubscribed, setHasSubscribed] = useState(false);
   const [isPlaceholderVisible, setPlaceholderVisible] = useState(true);
   const [password, setPassword] = useState('');
   const [isArrowUp, setArrowUp] = useState(false);
@@ -20,6 +19,7 @@ const App = () => {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+  
 
   const handleEmailClick = () => {
     if (isPlaceholderVisible) {
@@ -33,10 +33,17 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle the form submission here
+    
+    // Add email to the Firebase database
+    writeUserData(email);
+  
+    // Update the state to reflect the subscription
+    setHasSubscribed(true);
+
     console.log('Email submitted:', email);
     console.log('Password submitted:', password);
   };
+  
 
   const scrollToFriendsAndFamily = () => {
     const friendsAndFamilySection = document.getElementById('friendsAndFamilySection');
@@ -82,26 +89,43 @@ const App = () => {
     <div>
       <div className="container">
         <img src={logo} alt="Logo" className="logo" />
-        <h1 className="typewriter">
-          <Typewriter
-            options={{
-              strings: ["YOU'RE EARLY...", "SIGN UP FOR OUR NEWSLETTER"],
-              autoStart: true,
-              loop: true,
-            }}
-          />
-        </h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder={isPlaceholderVisible ? 'Enter your email' : ''}
-            value={email}
-            onChange={handleEmailChange}
-            onClick={handleEmailClick}
-            className="input-field"
-          />
-          <button type="submit" className="submit-button">Subscribe</button>
-        </form>
+        {hasSubscribed ? (
+        <>
+          <h1 className="typewriter">
+            <Typewriter
+              options={{
+                strings: ["WMCYN WELCOMES YOU"],
+                autoStart: true,
+                loop: true,
+              }}
+            />
+          </h1>
+          <p>Subscribed.</p>
+        </>
+      ) : (
+        <>
+          <h1 className="typewriter">
+            <Typewriter
+              options={{
+                strings: ["YOU'RE EARLY...", "SIGN UP FOR OUR NEWSLETTER"],
+                autoStart: true,
+                loop: true,
+              }}
+            />
+          </h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder={isPlaceholderVisible ? 'Enter your email' : ''}
+              value={email}
+              onChange={handleEmailChange}
+              onClick={handleEmailClick}
+              className="input-field"
+            />
+            <button type="submit" className="submit-button">Subscribe</button>
+          </form>
+        </>
+      )}
       </div>
 
       <div id="friendsAndFamilySection" className="container friends-and-family-section">
