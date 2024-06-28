@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 library.add(faArrowDown, faArrowUp);
 
 import logo from './assets/WMCYN LOGO WHITE.png';
-
 import image from './assets/instagram-logo.png';
 
 // Import the functions you need from the SDKs you need
@@ -16,12 +15,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, push, set } from "firebase/database";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
 const firebaseConfig = {
   apiKey: "AIzaSyBYOLsLlqNQTFgwWO1fyHUTgTHQ4JRgA-A",
   authDomain: "wmcyn-online-web.firebaseapp.com",
@@ -46,19 +40,18 @@ function writeUserData(emailID) {
   });
 }
 
-
-
 const App = () => {
   const [email, setEmail] = useState('');
   const [hasSubscribed, setHasSubscribed] = useState(false);
   const [isPlaceholderVisible, setPlaceholderVisible] = useState(true);
   const [password, setPassword] = useState('');
   const [isArrowUp, setArrowUp] = useState(false);
+  const [error, setError] = useState('');
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+    if (error) setError(''); // Clear the error message when the user starts typing
   };
-  
 
   const handleEmailClick = () => {
     if (isPlaceholderVisible) {
@@ -73,6 +66,12 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Validate email
+    if (!email) {
+      setError('Email is required.');
+      return;
+    }
+
     // Add email to the Firebase database
     writeUserData(email);
   
@@ -82,7 +81,6 @@ const App = () => {
     console.log('Email submitted:', email);
     console.log('Password submitted:', password);
   };
-  
 
   const scrollToFriendsAndFamily = () => {
     const friendsAndFamilySection = document.getElementById('friendsAndFamilySection');
@@ -94,10 +92,6 @@ const App = () => {
     window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     setArrowUp(!isArrowUp);
   };
-  
-  
-  
-  
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -115,7 +109,7 @@ const App = () => {
       }
     };
 
-    // dd the event listener
+    // Add the event listener
     window.addEventListener('scroll', handleScroll);
 
     // Cleanup the event listener on component unmount
@@ -129,42 +123,43 @@ const App = () => {
       <div className="container">
         <img src={logo} alt="Logo" className="logo" />
         {hasSubscribed ? (
-        <>
-          <h1 className="typewriter">
-            <Typewriter
-              options={{
-                strings: ["WMCYN WELCOMES YOU"],
-                autoStart: true,
-                loop: true,
-              }}
-            />
-          </h1>
-          <p>Subscribed.</p>
-        </>
-      ) : (
-        <>
-          <h1 className="typewriter">
-            <Typewriter
-              options={{
-                strings: ["YOU'RE EARLY...", "SIGN UP FOR OUR NEWSLETTER"],
-                autoStart: true,
-                loop: true,
-              }}
-            />
-          </h1>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              placeholder={isPlaceholderVisible ? 'Enter your email' : ''}
-              value={email}
-              onChange={handleEmailChange}
-              onClick={handleEmailClick}
-              className="input-field"
-            />
-            <button type="submit" className="submit-button">Subscribe</button>
-          </form>
-        </>
-      )}
+          <>
+            <h1 className="typewriter">
+              <Typewriter
+                options={{
+                  strings: ["WMCYN WELCOMES YOU"],
+                  autoStart: true,
+                  loop: true,
+                }}
+              />
+            </h1>
+            <p>Subscribed.</p>
+          </>
+        ) : (
+          <>
+            <h1 className="typewriter">
+              <Typewriter
+                options={{
+                  strings: ["YOU'RE EARLY...", "SIGN UP FOR OUR NEWSLETTER"],
+                  autoStart: true,
+                  loop: true,
+                }}
+              />
+            </h1>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                placeholder={isPlaceholderVisible ? 'Enter your email' : ''}
+                value={email}
+                onChange={handleEmailChange}
+                onClick={handleEmailClick}
+                className="input-field"
+              />
+              <button type="submit" className="submit-button">Subscribe</button>
+            </form>
+            {error && <p className="error">{error}</p>}
+          </>
+        )}
       </div>
 
       <div id="friendsAndFamilySection" className="container friends-and-family-section">
@@ -186,11 +181,11 @@ const App = () => {
         <p className="section-text">
         future forward start-up built on the advancement of modern technology intertwined with the basics of everyday lifestyle
         </p>
-      <div className="instagram-container">
-      <a href="https://instagram.com/whatmorecouldyouneed" className="instagram-link">
-        <img src={image} alt="Instagram" className="instagram-logo" />
-      </a>
-    </div>
+        <div className="instagram-container">
+          <a href="https://instagram.com/whatmorecouldyouneed" className="instagram-link">
+            <img src={image} alt="Instagram" className="instagram-logo" />
+          </a>
+        </div>
       </div>
       <div className="scroll-button-container">
         <button
