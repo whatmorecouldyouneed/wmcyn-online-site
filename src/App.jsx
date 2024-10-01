@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 import Typewriter from 'typewriter-effect';
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -11,19 +12,19 @@ import logo from './assets/WMCYN LOGO WHITE.png';
 import image from './assets/instagram-logo.png';
 
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, push, set } from "firebase/database";
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
+import { getDatabase, ref, push, set } from 'firebase/database';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBYOLsLlqNQTFgwWO1fyHUTgTHQ4JRgA-A",
-  authDomain: "wmcyn-online-web.firebaseapp.com",
-  projectId: "wmcyn-online-web",
-  storageBucket: "wmcyn-online-web.appspot.com",
-  messagingSenderId: "552241957320",
-  appId: "1:552241957320:web:c32590238a5e7ec06858fd",
-  measurementId: "G-KGVGX3LN7P"
+  apiKey: 'AIzaSyBYOLsLlqNQTFgwWO1fyHUTgTHQ4JRgA-A',
+  authDomain: 'wmcyn-online-web.firebaseapp.com',
+  projectId: 'wmcyn-online-web',
+  storageBucket: 'wmcyn-online-web.appspot.com',
+  messagingSenderId: '552241957320',
+  appId: '1:552241957320:web:c32590238a5e7ec06858fd',
+  measurementId: 'G-KGVGX3LN7P',
 };
 
 // Initialize Firebase
@@ -34,11 +35,20 @@ const db = getDatabase(app); // Here's the change
 function writeUserData(emailID) {
   const emailListRef = ref(db, 'emailList');
   const newEmailRef = push(emailListRef);
-  
+
   set(newEmailRef, {
-    email: emailID
+    email: emailID,
   });
 }
+
+const Shop = () => {
+  return (
+    <div>
+      <h1>Welcome to the Friends and Family Shop</h1>
+      <p>This is where exclusive items are available for family members.</p>
+    </div>
+  );
+};
 
 const App = () => {
   const [email, setEmail] = useState('');
@@ -47,6 +57,7 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [isArrowUp, setArrowUp] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // This works fine as long as BrowserRouter is in index.jsx
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -65,30 +76,37 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Validate email
     if (!email) {
-      setError('Email is required.');
+      setError('email is required.');
       return;
     }
 
     // Add email to the Firebase database
     writeUserData(email);
-  
+
     // Update the state to reflect the subscription
     setHasSubscribed(true);
+  };
 
-    console.log('Email submitted:', email);
-    console.log('Password submitted:', password);
+  const handleShopAccess = (e) => {
+    e.preventDefault();
+    const correctPassword = 'familyshop'; // Password for accessing the shop
+    if (password === correctPassword) {
+      navigate('/shop'); // Navigate to /shop if the password is correct
+    } else {
+      setError('incorrect password.');
+    }
   };
 
   const scrollToFriendsAndFamily = () => {
     const friendsAndFamilySection = document.getElementById('friendsAndFamilySection');
     const aboutSection = document.getElementById('aboutSection');
-  
+
     const scrollTarget = isArrowUp ? friendsAndFamilySection : aboutSection;
     const offsetTop = scrollTarget.offsetTop - 100; // Adjust the offset as needed
-  
+
     window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     setArrowUp(!isArrowUp);
   };
@@ -127,20 +145,20 @@ const App = () => {
             <h1 className="typewriter">
               <Typewriter
                 options={{
-                  strings: ["WMCYN WELCOMES YOU"],
+                  strings: ['WMCYN WELCOMES YOU'],
                   autoStart: true,
                   loop: true,
                 }}
               />
             </h1>
-            <p>Subscribed.</p>
+            <p>subscribed.</p>
           </>
         ) : (
           <>
             <h1 className="typewriter">
               <Typewriter
                 options={{
-                  strings: ["YOU'RE EARLY...", "SIGN UP FOR OUR NEWSLETTER"],
+                  strings: ["YOU'RE EARLY...", 'SIGN UP FOR OUR NEWSLETTER'],
                   autoStart: true,
                   loop: true,
                 }}
@@ -149,37 +167,43 @@ const App = () => {
             <form onSubmit={handleSubmit}>
               <input
                 type="email"
-                placeholder={isPlaceholderVisible ? 'Enter your email' : ''}
+                placeholder={isPlaceholderVisible ? 'enter your email' : ''}
                 value={email}
                 onChange={handleEmailChange}
                 onClick={handleEmailClick}
                 className="input-field"
               />
-              <button type="submit" className="submit-button">Subscribe</button>
+              <button type="submit" className="submit-button">
+                subscribe
+              </button>
             </form>
             {error && <p className="error">{error}</p>}
           </>
         )}
       </div>
 
+      {/* Friends and Family Shop Section */}
       <div id="friendsAndFamilySection" className="container friends-and-family-section">
         <h2 className="section-heading">FRIENDS AND FAMILY SHOP</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleShopAccess}>
           <input
             type="password"
-            placeholder="Enter password"
+            placeholder="password"
             value={password}
             onChange={handlePasswordChange}
             className="input-field"
           />
-          <button type="submit" className="submit-button">Enter</button>
+          <button type="submit" className="submit-button">
+            enter store
+          </button>
         </form>
+        {error && <p className="error">{error}</p>}
       </div>
 
       <div className="container" id="aboutSection">
         <h2 className="section-heading">ABOUT WMCYN</h2>
         <p className="section-text">
-        future forward start-up built on the advancement of modern technology intertwined with the basics of everyday lifestyle
+          future forward start-up built on the advancement of modern technology intertwined with the basics of everyday lifestyle
         </p>
         <div className="instagram-container">
           <a href="https://instagram.com/whatmorecouldyouneed" className="instagram-link">
@@ -187,6 +211,7 @@ const App = () => {
           </a>
         </div>
       </div>
+
       <div className="scroll-button-container">
         <button
           className={`scroll-button ${isArrowUp ? 'up' : 'down'}`}
@@ -195,6 +220,11 @@ const App = () => {
           <FontAwesomeIcon icon={isArrowUp ? 'arrow-up' : 'arrow-down'} />
         </button>
       </div>
+
+      {/* Routes for the app */}
+      <Routes>
+        <Route path="/shop" element={<Shop />} />
+      </Routes>
     </div>
   );
 };
